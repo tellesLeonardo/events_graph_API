@@ -11,16 +11,6 @@ config :events_grapAPI,
   ecto_repos: [EventsGrapAPI.Repo],
   generators: [timestamp_type: :utc_datetime]
 
-# Configure your database
-config :events_grapAPI, EventsGrapAPI.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "events_DB",
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
-
 
 # Configures the endpoint
 config :events_grapAPI, EventsGrapAPIWeb.Endpoint,

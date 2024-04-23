@@ -1,8 +1,18 @@
 import Config
 
+# Configure your database
+config :events_grapAPI, EventsGrapAPI.Repo,
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost",
+  database: "events_DB",
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
-#
+#1
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we can use it
 # to bundle .js and .css sources.

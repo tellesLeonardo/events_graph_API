@@ -5,7 +5,7 @@ defmodule EventsGrapAPIWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", EventsGrapAPIWeb do
+  scope "/api" do
     pipe_through :api
 
     forward "/graph", Absinthe.Plug, schema: EventsGrapAPI.Schema
@@ -16,7 +16,7 @@ defmodule EventsGrapAPIWeb.Router do
     scope "/graphiql" do
       pipe_through :api
 
-      forward "/", Absinthe.Plug.GraphiQL, schema: GraphqlExampleWeb.Schema
+      forward "/", Absinthe.Plug.GraphiQL, schema: EventsGrapAPI.Schema
     end
   end
 
