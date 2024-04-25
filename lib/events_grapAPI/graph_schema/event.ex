@@ -1,7 +1,8 @@
 defmodule EventsGrapAPI.GraphSchema.Event do
   use Absinthe.Schema.Notation
 
-  import_types(EventsGrapAPI.GraphSchema.{Reservation, Types})
+  import_types(EventsGrapAPI.GraphSchema.Types, only: [:datetime])
+  import_types(EventsGrapAPI.GraphSchema.Reservation)
 
   object :event do
     field :id, :id

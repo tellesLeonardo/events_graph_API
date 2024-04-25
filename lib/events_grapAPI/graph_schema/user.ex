@@ -1,6 +1,8 @@
 defmodule EventsGrapAPI.GraphSchema.User do
   use Absinthe.Schema.Notation
-  import_types(EventsGrapAPI.GraphSchema.{Reservation, Types})
+
+  import_types(EventsGrapAPI.GraphSchema.Types, only: [:datetime])
+  import_types(EventsGrapAPI.GraphSchema.Reservation)
 
   object :user do
     field :id, :id
@@ -10,14 +12,5 @@ defmodule EventsGrapAPI.GraphSchema.User do
     field :lastLogin, :datetime
     field :created_at, :datetime
     field :reservations, list_of(:reservation)
-
   end
-
-
-    # alias EventsGrapAPI.Resolvers.Users, as: ResolverUser
-  # query do
-  #   field :users, list_of(:user) do
-  #     resolve &ResolverUser.all/2
-  #   end
-  # end
 end
