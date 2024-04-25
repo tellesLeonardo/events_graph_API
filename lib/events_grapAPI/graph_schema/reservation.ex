@@ -1,7 +1,7 @@
-defmodule EventsGrapAPI.Schema.Reservation do
+defmodule EventsGrapAPI.GraphSchema.Reservation do
   use Absinthe.Schema.Notation
 
-  import_types(EventsGrapAPI.Schema.User, EventsGrapAPI.Schema.Event)
+  import_types(EventsGrapAPI.GraphSchema.{User, Event, Types})
 
   object :event do
     field :status, non_null(:string)
