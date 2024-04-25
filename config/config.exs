@@ -11,7 +11,6 @@ config :events_grapAPI,
   ecto_repos: [EventsGrapAPI.Repo],
   generators: [timestamp_type: :utc_datetime]
 
-
 # Configures the endpoint
 config :events_grapAPI, EventsGrapAPIWeb.Endpoint,
   url: [host: "localhost"],

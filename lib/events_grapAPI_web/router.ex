@@ -11,7 +11,6 @@ defmodule EventsGrapAPIWeb.Router do
     forward "/graph", Absinthe.Plug, schema: EventsGrapAPI.Schema
   end
 
-
   if Mix.env() == :dev do
     scope "/graphiql" do
       pipe_through :api
@@ -19,8 +18,6 @@ defmodule EventsGrapAPIWeb.Router do
       forward "/", Absinthe.Plug.GraphiQL, schema: EventsGrapAPI.Schema
     end
   end
-
-
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:events_grapAPI, :dev_routes) do
