@@ -8,14 +8,14 @@ defmodule EventsGrapAPIWeb.Router do
   scope "/api" do
     pipe_through :api
 
-    forward "/graph", Absinthe.Plug, schema: EventsGrapAPI.Schema
+    forward "/graph", Absinthe.Plug, schema: EventsGrapAPI.Schema.Hello
   end
 
   if Mix.env() == :dev do
     scope "/graphiql" do
       pipe_through :api
 
-      forward "/", Absinthe.Plug.GraphiQL, schema: EventsGrapAPI.Schema
+      forward "/", Absinthe.Plug.GraphiQL, schema: EventsGrapAPI.Schema.Hello
     end
   end
 

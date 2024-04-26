@@ -6,13 +6,14 @@ defmodule EventsGrapAPI.Schema.Reservation do
 
   @fields ~w(status
   user_id
-  event_id)
+  event_id)a
 
   @type t :: %__MODULE__{}
-  schema "events" do
+  schema "reservations" do
     field(:status, :string)
-    has_one(:event, Event)
-    has_one(:user, User)
+
+    belongs_to :event, Event
+    belongs_to :user, User
 
     timestamps()
   end

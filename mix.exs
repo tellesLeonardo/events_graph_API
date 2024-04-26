@@ -56,7 +56,8 @@ defmodule EventsGrapAPI.MixProject do
       {:bandit, "~> 1.2"},
       {:absinthe, "~> 1.7"},
       {:absinthe_plug, "~> 1.5"},
-      {:absinthe_phoenix, "~> 2.0"}
+      {:absinthe_phoenix, "~> 2.0"},
+      {:timex, "~> 3.7"}
     ]
   end
 

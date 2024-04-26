@@ -1,9 +1,13 @@
-defmodule EventsGrapAPI.Schema do
+defmodule EventsGrapAPI.Schema.Hello do
   use Absinthe.Schema
 
+  import_types(EventsGrapAPI.GraphSchema.{User, Event})
+
   query do
-    field :hello, :string do
-      resolve(fn _, _ -> {:ok, "Hello, world!"} end)
-    end
+    import_fields(:user_query)
+  end
+
+  mutation do
+    import_fields(:user_mutations)
   end
 end
