@@ -1,10 +1,8 @@
 defmodule EventsGrapAPI.GraphSchema.User do
   use Absinthe.Schema.Notation
 
-  alias EventsGrapAPI.Service.Reservation, as: ServiceReservation
+  alias EventsGrapAPI.Resolvers.Reservation, as: RR
   alias EventsGrapAPI.Resolvers.User, as: ResolverUser
-
-  import_types(EventsGrapAPI.GraphSchema.Reservation)
 
   object :user do
     field :id, :id
@@ -15,7 +13,7 @@ defmodule EventsGrapAPI.GraphSchema.User do
     field :created_at, :uct_datetime
 
     field :reservations, list_of(:reservation) do
-      resolve(&ServiceReservation.get_user_reservations/3)
+      resolve(&RR.get_user_reservations/3)
     end
   end
 

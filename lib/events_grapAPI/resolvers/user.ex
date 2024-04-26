@@ -8,7 +8,6 @@ defmodule EventsGrapAPI.Resolvers.User do
 
   def create(_parent, args, _context) do
     if args.name == nil or args.email == nil or args.password_hash == nil do
-      # Retorna erro se algum argumento obrigatório for nulo
       {:error, "Missing required arguments"}
     else
       changeset =
