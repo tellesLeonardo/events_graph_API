@@ -1,16 +1,38 @@
 defmodule EventsGrapAPI.Schema.User do
-  use Absinthe.Schema.Notation
+  use Ecto.Schema
+  import Ecto.Changeset
 
-  import_types(EventsGrapAPI.Schema.Reservation)
+  alias EventsGrapAPI.Schema.Reservation
 
-  object :user do
-    field :id, :id
+  @require_fields ~w(
+    name
+    email
+    password_hash
+  )a
 
-    field :name, non_null(:string)
-    field :name, non_null(:string)
-    field :name, non_null(:string)
-    field :lastLogin, :datetime
-    field :created_at, :datetime
-    field :reservations, list_of(:reservation)
+  @fields ~w(last_login)a
+
+  @type t :: %__MODULE__{}
+  schema "users" do
+    field(:name, :string)
+    field(:email, :string)
+    field(:password_hash, :string)
+    field(:last_login, :utc_datetime)
+
+    has_one(:reservation, Reservation)
+
+    timestamps()
+  end
+
+  def changeset(user, params) do
+    Map.merge(%{last_login: nil}, user)
+    |> cast(params, @fields ++ @require_fields)
+    |> put_change(:last_login, datetime())
+    |> validate_required(@require_fields)
+  end
+
+  defp datetime do
+    Timex.now()
+    |> DateTime.truncate(:second)
   end
 end

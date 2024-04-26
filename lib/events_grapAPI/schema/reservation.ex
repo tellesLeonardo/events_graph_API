@@ -1,13 +1,27 @@
 defmodule EventsGrapAPI.Schema.Reservation do
-  use Absinthe.Schema.Notation
+  use Ecto.Schema
+  import Ecto.Changeset
 
-  import_types(EventsGrapAPI.Schema.User, EventsGrapAPI.Schema.Event)
+  alias EventsGrapAPI.Schema.{User, Event}
 
-  object :event do
-    field :status, non_null(:string)
-    field :user_id, :user
-    field :event_id, :event
-    field :created_at, :datetime
-    field :updated_at, :datetime
+  @fields ~w(status
+  user_id
+  event_id)a
+
+  @type t :: %__MODULE__{}
+  schema "reservations" do
+    field(:status, :string)
+
+    belongs_to :event, Event
+    belongs_to :user, User
+
+    timestamps()
+  end
+
+  def changeset(user, params) do
+    user
+    |> cast(params, @fields)
+    |> validate_required(@fields)
+    |> validate_length(:status, max: 50)
   end
 end

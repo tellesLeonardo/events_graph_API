@@ -5,8 +5,8 @@ defmodule EventsGrapAPI.Repo.Migrations.Users do
     create table("users") do
       add :name, :string, null: false
       add :email, :string, null: false
-      add :PasswordHash, :string, null: false
-      add :lastLogin, :timestamp
+      add :password_hash, :string, null: false
+      add :last_login, :timestamp
 
       timestamps()
     end
