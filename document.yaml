@@ -1,0 +1,290 @@
+openapi: 3.0.3
+info:
+  title: GraphQL API
+  description: .
+  version: 1.0.0
+tags:
+  - name: graphQL
+    description: todas as rotas e examples de uso
+paths:
+  /graphql:
+    post:
+      summary: Endpoint para GraphQL
+      description: Endpoint para executar queries e mutations GraphQL.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                  description: GraphQL query ou mutation
+                variables:
+                  type: object
+                  description: Variáveis para a query ou mutation
+      responses:
+        '200':
+          description: Resposta bem-sucedida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    description: Dados retornados pela query GraphQL
+                  errors:
+                    type: array
+                    description: Erros ocorridos durante a execução da query
+                    items:
+                      type: object
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          description: Mensagem de erro
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identificador do usuário
+        name:
+          type: string
+          description: Nome do usuário
+        email:
+          type: string
+          description: Email do usuário
+    Reservation:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identificador da reserva
+        status:
+          type: string
+          description: Status da reserva
+        event_id:
+          type: string
+          description: ID do evento associado
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identificador do evento
+        name:
+          type: string
+          description: Nome do evento
+        description:
+          type: string
+          description: Descrição do evento
+        location:
+          type: string
+          description: Localização do evento
+        capacity:
+          type: integer
+          description: Capacidade do evento
+  examples:
+    create_event_mutation:
+      summary: Mutation para criar um evento
+      value:
+        query: |
+          mutation {
+            create_event(
+              name: "Conferência de Tecnologia",
+              description: "Evento sobre as últimas tendências em tecnologia.",
+              location: "São Paulo, Brasil",
+              capacity: 100,
+              event_date_time: "2024-12-01T10:00:00Z",
+              created_at: "2024-11-01T09:00:00Z"
+            ) {
+              id
+              name
+              description
+              location
+              capacity
+              event_date_time
+            }
+          }
+    update_event_mutation:
+      summary: Mutation para atualizar um evento
+      value:
+        query: |
+          mutation {
+            update_event(
+              id: "1",
+              name: "Conferência de Tecnologia Atualizada",
+              description: "Uma conferência revisada sobre tendências em tecnologia.",
+              location: "Rio de Janeiro, Brasil",
+              capacity: 150,
+              event_date_time: "2024-12-02T10:00:00Z"
+            ) {
+              id
+              name
+              description
+              location
+              capacity
+              event_date_time
+            }
+          }
+    delete_event_mutation:
+      summary: Mutation para excluir um evento
+      value:
+        query: |
+          mutation {
+            delete_event(id: "1") {
+              id
+              name
+            }
+          }
+    list_events_query:
+      summary: Query para listar todos os eventos
+      value:
+        query: |
+          {
+            events {
+              id
+              name
+              description
+              location
+              capacity
+            }
+          }
+    create_user_mutation:
+      summary: Mutation para criar um usuário
+      value:
+        query: |
+          mutation {
+            create_user(
+              name: "John Doe",
+              email: "john.doe@example.com",
+              password_hash: "hashed_password"
+            ) {
+              id
+              name
+              email
+            }
+          }
+    update_user_mutation:
+      summary: Mutation para atualizar um usuário
+      value:
+        query: |
+          mutation {
+            update_user(
+              id: "1",
+              name: "Jane Doe",
+              email: "jane.doe@example.com"
+            ) {
+              id
+              name
+              email
+            }
+          }
+    delete_user_mutation:
+      summary: Mutation para excluir um usuário
+      value:
+        query: |
+          mutation {
+            delete_user(id: "1") {
+              id
+              name
+              email
+            }
+          }
+    list_users_query:
+      summary: Query para listar todos os usuários
+      value:
+        query: |
+          {
+            users {
+              id
+              name
+              email
+            }
+          }
+    create_reservation_mutation:
+      summary: Mutation para criar uma reserva
+      value:
+        query: |
+          mutation {
+            create_reserv(
+              status: "confirmed",
+              user_id: "1",
+              event_id: "123"
+            ) {
+              id
+              status
+              user_id
+              event_id
+            }
+          }
+    update_reservation_mutation:
+      summary: Mutation para atualizar uma reserva
+      value:
+        query: |
+          mutation {
+            update_reserv(
+              id: "456",
+              status: "cancelled"
+            ) {
+              id
+              status
+              user_id
+              event_id
+            }
+          }
+    delete_reservation_mutation:
+      summary: Mutation para excluir uma reserva
+      value:
+        query: |
+          mutation {
+            delete_reserv(id: "789") {
+              id
+              status
+              user_id
+              event_id
+            }
+          }
+    create_multiple_reservations_mutation:
+      summary: Mutation para criar múltiplas reservas
+      value:
+        query: |
+          mutation {
+            multi_reserv(
+              status: "confirmed",
+              user_id: "1",
+              event_id: ["123", "456", "789"]
+            ) {
+              id
+              status
+              user_id
+              event_id
+            }
+          }
+    list_reservations_query:
+      summary: Query para listar todas as reservas
+      value:
+        query: |
+          {
+            reservs {
+              id
+              status
+              user_id
+              event_id
+            }
+          }
