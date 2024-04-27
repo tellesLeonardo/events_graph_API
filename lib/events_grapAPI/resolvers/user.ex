@@ -8,7 +8,6 @@ defmodule EventsGrapAPI.Resolvers.User do
 
   def create(_parent, args, _context) do
     if args.name == nil or args.email == nil or args.password_hash == nil do
-      # Retorna erro se algum argumento obrigatório for nulo
       {:error, "Missing required arguments"}
     else
       changeset =
@@ -47,5 +46,15 @@ defmodule EventsGrapAPI.Resolvers.User do
           {:error, reason} -> {:error, reason}
         end
     end
+  end
+
+  def get_user(_parent, %{user_id: user_id}, _context) do
+    user = Repo.get(User, user_id)
+    {:ok, user}
+  end
+
+  def get_user(parent, _args, _context) do
+    user = Repo.get(User, parent.user_id)
+    {:ok, user}
   end
 end
