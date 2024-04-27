@@ -1,21 +1,6 @@
 defmodule EventsGrapAPI.GraphSchema.Event do
   use Absinthe.Schema.Notation
-  alias EventsGrapAPI.Resolvers.Reservation, as: RR
   alias EventsGrapAPI.Resolvers.Event, as: ResolverEvent
-
-  object :event do
-    field :id, :id
-    field :name, :string
-    field :description, :string
-    field :location, :string
-    field :capacity, non_null(:integer)
-    field :event_date_time, :uct_datetime
-    field :created_at, :uct_datetime
-
-    field :reservations, list_of(:reservation) do
-      resolve(&RR.get_event_reservations/3)
-    end
-  end
 
   object :event_mutations do
     field :create_event, type: :event do

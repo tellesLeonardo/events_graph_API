@@ -49,4 +49,14 @@ defmodule EventsGrapAPI.Resolvers.Event do
         end
     end
   end
+
+  def get_event(_parent, %{event_id: event_id}, _context) do
+    event = Repo.get(Event, event_id)
+    {:ok, event}
+  end
+
+  def get_event(parent, _args, _context) do
+    event = Repo.get(Event, parent.event_id)
+    {:ok, event}
+  end
 end
