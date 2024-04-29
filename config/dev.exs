@@ -2,9 +2,10 @@ import Config
 
 # Configure your database
 config :events_grapAPI, EventsGrapAPI.Repo,
+  url:  System.get_env("DATABASE_URL", "localhost"),
   username: "postgres",
   password: "postgres",
-  hostname: "localhost",
+  hostname: System.get_env("HOST", "localhost"),
   database: "events_DB",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
