@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  elixir_app:
+    image: leotf159/elixir_events:7.0
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: /bin/sh docker_dev_start.sh
+    environment:
+      DATABASE_URL: "postgres://postgres:postgres@postgresql_db:5432/events_DB"
+      HOST: "postgresql_db"
+    depends_on:
+      - postgresql_db
+      - pgadmin
+    links:
+      - postgresql_db
+    mem_limit: 15g
+    ports:
+      - "4000:4000"
+    networks:
+      - my_network
+
+  postgresql_db:
+    image: postgres:13-bullseye 
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: events_DB 
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - my_network 
+
+  pgadmin:
+    image: dpage/pgadmin4:8
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "5051:80"
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  pgadmin_data:
