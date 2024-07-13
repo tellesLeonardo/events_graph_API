@@ -12,7 +12,6 @@ services:
       HOST: "postgresql_db"
     depends_on:
       - postgresql_db
-      - pgadmin
     links:
       - postgresql_db
     mem_limit: 15g
@@ -40,4 +39,3 @@ networks:
 
 volumes:
   postgres_data:
-  pgadmin_data:
