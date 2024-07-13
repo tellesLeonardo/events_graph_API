@@ -2,7 +2,7 @@ import Config
 
 # Configure your database
 config :events_grapAPI, EventsGrapAPI.Repo,
-  url:  System.get_env("DATABASE_URL", "localhost"),
+  # url:  System.get_env("DATABASE_URL", "localhost"),
   username: "postgres",
   password: "postgres",
   hostname: System.get_env("HOST", "localhost"),
